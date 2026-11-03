@@ -1,0 +1,15 @@
+{
+  "name": "ghost-job-local",
+  "version": "1.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs --open",
+    "simulate": "node server.mjs --simulate --open",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "description": "可在 Windows 本地运行的求职辅助工作区与隔离模拟工具"
+}

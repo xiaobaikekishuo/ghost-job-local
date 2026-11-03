@@ -1,0 +1,21 @@
+# Local user data and credentials (never publish)
+data/
+data-simulation/
+backups/
+runtime/
+*-profile/
+*.sqlite
+*.sqlite-*
+*.db
+*.key
+.env
+.env.*
+hosts.yml
+simulation-world.json
+# Build and test scratch
+.build/
+dist/
+node_modules/
+__pycache__/
+*.pyc
+*.log
