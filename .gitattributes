@@ -7,3 +7,4 @@
 *.vbs -text
 *.zip binary
 *.png binary
+*.jpg binary

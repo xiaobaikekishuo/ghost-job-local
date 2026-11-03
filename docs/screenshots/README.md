@@ -6,8 +6,8 @@
 
 | 图片 | 内容 |
 | --- | --- |
-| [dashboard.png](dashboard.png) | 工作台、运行日志与演练结果 |
-| [jobs.png](jobs.png) | 岗位筛选、匹配分与沟通状态 |
-| [messages.png](messages.png) | 历史会话与待确认回复草稿 |
-| [company.png](company.png) | 企业资料、来源线索与 PDF 导出 |
-| [analytics.png](analytics.png) | 统计快照、回应率与样本量提示 |
+| [dashboard.jpg](dashboard.jpg) | 工作台、运行日志与演练结果 |
+| [jobs.jpg](jobs.jpg) | 岗位筛选、匹配分与沟通状态 |
+| [messages.jpg](messages.jpg) | 历史会话与待确认回复草稿 |
+| [company.jpg](company.jpg) | 企业资料、来源线索与 PDF 导出 |
+| [analytics.jpg](analytics.jpg) | 统计快照、回应率与样本量提示 |
