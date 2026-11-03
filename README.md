@@ -4,6 +4,54 @@
 
 **这是根据公开功能独立实现的本地版本，不是原版 Ghost Job 的官方发行版。** 功能参考：[InfernalAzazel/ghost-job](https://github.com/InfernalAzazel/ghost-job)。
 
+[下载 Windows 便携版](https://github.com/xiaobaikekishuo/ghost-job-local/releases/latest) · [查看安装步骤](#windows-安装无需编程环境)
+
+## 界面演示
+
+以下是 **v1.1.2 实际运行截图**，来自独立模拟环境。岗位、企业、HR、简历和统计均为虚构演练数据，不代表实际求职结果。点击图片可以查看原图。
+
+### 工作台
+
+集中查看投递、回复、运行日志与演练结果；从这里开始岗位读取和消息处理。
+
+![工作台：投递与回复统计、操作入口和运行日志](docs/screenshots/dashboard.png)
+
+<details>
+<summary><strong>岗位管理：匹配分、筛选理由与沟通状态</strong></summary>
+
+按状态筛选岗位，查看匹配分与筛选理由，并支持导入、导出和企业查询。
+
+![岗位管理：虚构岗位的薪资、匹配分、筛选理由与沟通状态](docs/screenshots/jobs.png)
+
+</details>
+
+<details>
+<summary><strong>消息与草稿：历史会话、面试状态和人工确认</strong></summary>
+
+集中查看历史会话、标记面试进度；回复草稿可编辑，确认后再发送。图中展示待确认草稿。
+
+![消息中心：虚构 HR 会话与待确认回复草稿](docs/screenshots/messages.png)
+
+</details>
+
+<details>
+<summary><strong>企业查询：资料、来源线索和 PDF 导出</strong></summary>
+
+展示企业资料、资料来源与风险提示，可导出 PDF。此图为虚构企业样本。
+
+![企业查询：虚构企业资料、来源线索和 PDF 下载入口](docs/screenshots/company.png)
+
+</details>
+
+<details>
+<summary><strong>求职分析：统计快照、回应率与样本提示</strong></summary>
+
+保存统计快照，查看回应率估计、置信区间和样本量，支持解读与 PDF 导出。
+
+![求职分析：模拟统计快照、回应率估计与样本量提示](docs/screenshots/analytics.png)
+
+</details>
+
 ## Windows 安装：无需编程环境
 
 1. 打开本仓库右侧 **Releases**，进入最新版本。
