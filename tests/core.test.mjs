@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import {createStore,defaults,filterJob} from '../lib/store.mjs';
-import {analyze,parseAnalysis,aiUrl} from '../lib/ai.mjs';
+import {analyze,parseAnalysis,aiUrl,chat} from '../lib/ai.mjs';
 
 test('database persists records and encrypted credentials across reopen',()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'ghost-local-test-'));let s=createStore(dir);
@@ -41,5 +41,25 @@ test('malformed model output cannot become a successful match',()=>{
 test('AI adapter handles a real local HTTP exchange and applies minimum score',async()=>{
  let received;const server=http.createServer(async(req,res)=>{let raw='';for await(const c of req)raw+=c;received=JSON.parse(raw);res.setHeader('Content-Type','application/json');res.end(JSON.stringify({choices:[{message:{content:'{"suitable":true,"score":70,"reason":"经验部分匹配"}'}}]}));});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
- try{const r=await analyze({title:'Python开发',description:'测试岗位描述'}, {...defaults,aiBase:`http://127.0.0.1:${server.address().port}/v1`,apiKey:'fake',resume:'测试简历',minScore:80});assert.equal(r.status,'不合适');assert.equal(r.score,70);assert.equal(received.model,'deepseek-chat');assert.ok(received.messages[1].content.includes('测试简历'));}finally{await new Promise(r=>server.close(r));}
+ try{const r=await analyze({title:'Python开发',description:'测试岗位描述'}, {...defaults,aiBase:`http://127.0.0.1:${server.address().port}/v1`,apiKey:'fake',resume:'测试简历',minScore:80});assert.equal(r.status,'不合适');assert.equal(r.score,70);assert.equal(received.model,'deepseek-chat');assert.equal(received.temperature,0.2);assert.equal(received.max_tokens,1600);assert.equal(received.reasoning_effort,undefined);assert.ok(received.messages[1].content.includes('测试简历'));}finally{await new Promise(r=>server.close(r));}
+});
+
+test('Astra analysis uses reasoning parameters and rejects truncated responses',async()=>{
+ let truncated=false;
+ const server=http.createServer(async(req,res)=>{
+  let raw='';for await(const c of req)raw+=c;const body=JSON.parse(raw);
+  const valid=body.model==='gpt-6-astra'&&body.reasoning_effort==='low'
+   &&body.max_completion_tokens>=4096&&!('max_tokens' in body)&&!('temperature' in body);
+  res.setHeader('Content-Type','application/json');
+  if(!valid){res.statusCode=400;res.end('{"error":"unsupported parameters"}');return;}
+  res.end(JSON.stringify({choices:[{finish_reason:truncated?'length':'stop',message:{content:'{"suitable":true,"score":88,"reason":"采购经验匹配"}'}}]}));
+ });
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));
+ const settings={...defaults,aiBase:`http://127.0.0.1:${server.address().port}/v1`,aiModel:'gpt-6-astra',apiKey:'fake',resume:'测试采购简历'};
+ try{
+  const result=await analyze({title:'采购专员',description:'测试岗位'},settings);
+  assert.equal(result.status,'合适');assert.equal(result.score,88);assert.equal(result.reason,'采购经验匹配');
+  truncated=true;
+  await assert.rejects(()=>chat(settings,[{role:'user',content:'测试'}]),/长度上限/);
+ }finally{await new Promise(r=>server.close(r));}
 });

@@ -1,0 +1,6 @@
+A border Job
+
+本地应用显示名称由用户指定。
+品牌图标按用户要求沿用 https://nxitek.cn/ 提供的 A-Border 标识。
+图标来源：https://nxitek.cn/storage/uploads/site/a-border-favicon-20260916.png
+获取日期：2026-11-04。图像保持原样，使用本地副本展示。

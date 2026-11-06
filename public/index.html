@@ -1,3 +1,32 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Ghost Job · 本地版</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%232f6dee'/%3E%3Ctext x='9' y='29' font-size='27' fill='white'%3EG%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"></head>
-<body><header class="topbar"><a class="brand" href="#dashboard"><span class="brand-mark" id="brand-icon"></span><span><strong>Ghost Job <em>本地版</em></strong><small>让每一次沟通，都更有价值</small></span></a><nav aria-label="主导航" id="nav"></nav><span class="local-status"><i></i> 本地运行</span></header><main id="app"><div class="loading">正在连接本地服务…</div></main><footer><span>Ghost Job Local <b>1.1.2</b> · 独立实现</span><span id="footer-status">数据保存在本机</span><button class="text-btn" id="help">使用指南</button></footer><div id="toast" role="status" aria-live="polite"></div><dialog id="modal"><div id="modal-content"></div></dialog><input id="import-file" type="file" accept=".json,application/json" hidden><script type="module" src="/app.js"></script></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>A border Job · 本地版</title>
+  <meta name="application-name" content="A border Job">
+  <link rel="icon" type="image/png" href="/assets/a-border-icon.png">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/workspace.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-action="skip-content">跳转到主要内容</a>
+  <aside class="app-sidebar">
+    <a class="brand" href="#dashboard" aria-label="A border Job 工作台">
+      <span class="brand-mark" id="brand-icon"><img src="/assets/a-border-icon.png" width="44" height="44" alt=""></span>
+      <span class="brand-copy"><strong>A border Job</strong><small>本地版 · 让机会有序向前</small></span>
+    </a>
+    <div class="sidebar-label">工作空间</div>
+    <nav aria-label="主导航" id="nav"></nav>
+    <div class="sidebar-bottom"><span class="local-status"><i></i><span>本地运行</span></span><small>你的机会，有序向前。</small><button class="text-btn" id="help">使用指南 <span aria-hidden="true">↗</span></button></div>
+  </aside>
+  <header class="workspace-header"><div class="breadcrumb"><span>工作空间</span><span aria-hidden="true">/</span><strong id="page-label">工作台</strong></div><span class="connection-badge" id="connection-status"><i class="dot"></i>本地运行</span></header>
+  <div id="main-content" tabindex="-1"><main id="app"><div class="loading">正在连接本地服务…</div></main></div>
+  <footer class="app-footer"><span>A border Job <b>本地版</b></span><span id="footer-status">数据保存在本机</span></footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal"><div id="modal-content"></div></dialog>
+  <input id="import-file" type="file" accept=".json,application/json" hidden>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

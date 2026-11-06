@@ -14,6 +14,18 @@ test('HTTP API: CRUD, export, CSRF, demo send guard, resume extraction, restart 
  const req=async(p,b,headers={})=>{const r=await fetch(base+'/api/'+p,b===undefined?{headers}:{method:'POST',headers:{'Content-Type':'application/json','X-Local-App':'ghost-job',...headers},body:JSON.stringify(b)});return {status:r.status,data:await r.json()};};
  try{
  await start();assert.equal((await fetch(base)).status,200);
+ const planStatus=await req('chatgpt/status');assert.equal(planStatus.status,200);assert.equal(planStatus.data.connected,false);assert.deepEqual(planStatus.data.accounts,[]);
+ assert.equal((await req('settings',{aiProvider:'invalid-provider'})).status,400);
+ const authorization=(await req('chatgpt/start',{})).data,url=new URL(authorization.url);
+ assert.equal(url.origin,'https://auth.openai.com');assert.equal(url.searchParams.get('client_id'),'dynamic_agent_client');
+ assert.equal(url.searchParams.get('redirect_uri'),base+'/auth/chatgpt/callback');
+ assert.equal((await req('chatgpt/status')).data.pending,true);
+ assert.equal((await req('task/start',{})).status,400);
+ const invalidCallback=await fetch(base+'/auth/chatgpt/callback?state=wrong&code=not-a-real-code&client_id=invalid');
+ assert.equal(invalidCallback.status,400);assert.equal((await invalidCallback.text()).includes('not-a-real-code'),false);
+ assert.equal((await req('chatgpt/cancel',{})).data.pending,false);
+ assert.equal((await req('state')).data.settings.aiProvider,'api');
+ assert.equal((await req('task/stop',{})).status,200);assert.equal((await req('state')).data.task.phase,'已停止');
  assert.equal((await req('state',undefined,{Origin:'https://unrelated.example'})).status,403);
  assert.equal((await fetch(base+'/api/settings',{method:'POST',body:'{}'})).status,403);
  assert.equal((await req('settings',{keywords:'测试开发',resume:'测试简历，仅用于验证',apiKey:'fake-credential'})).status,200);
